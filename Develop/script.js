@@ -25,12 +25,15 @@ var auditCard = function(cardEl) {
     // remove any old classes from element
     $(cardEl).removeClass("list-group-item-warning list-group-item-danger");
   
-    // apply new class if task is near/over due date
+    // apply new class if card present (same hour), past or future
+    if (moment().format("HH") === hour) {
+        $(cardEl).addClass("list-group-item-danger");
+    }
     if (moment().isAfter(time)) {
-      $(cardEl).addClass("list-group-item-danger");
+      $(cardEl).addClass("list-group-item-secondary");
     } 
     else {
-      $(cardEl).addClass("list-group-item-warning");
+      $(cardEl).addClass("list-group-item-success");
     }
   };
   
