@@ -1,3 +1,7 @@
+// var tasks = [];
+
+var tasks = JSON.parse(localStorage.getItem('tasks'))
+
 // get current date
 
 var currentDate = document.querySelector("#currentDay");
@@ -37,8 +41,59 @@ var auditCard = function(cardEl) {
     }
   };
   
-  setInterval(function () {
-    $(".card").each(function(index, el) {
-        auditCard(el);
-    });
-  }, 5000);
+//   setInterval(function () {
+//     $(".card").each(function(index, el) {
+//         auditCard(el);
+//     });
+//   }, 000);
+
+  $(".card").each(function(index, el) {
+    auditCard(el);
+  });
+
+
+  var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  };
+
+  // save button
+  $(".card-button").click(function(){
+    
+    var hour = this.getAttribute('id');
+    var task = $('#task-'+hour).val();
+
+
+    tasks.push({
+        time: hour,
+        txt: task
+      });
+    
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    console.log(tasks)
+
+  })
+
+  for (let index = 0; index < tasks.length; index++) {
+      var hour = tasks[index].time
+      $('#task-'+hour).val(tasks[index].txt);
+  }
+
+  
+  
+
+//   $(".list-group").on("click", "p", function() {
+//     // get current text of p element
+//     var text = $(this)
+//       .text()
+//       .trim();
+  
+//     // replace p element with a new textarea
+//     var textInput = $("<textarea>").addClass("form-control").val(text);
+//     $(this).replaceWith(textInput);
+  
+//     // auto focus new element
+//     textInput.trigger("focus");
+//   });
+  
